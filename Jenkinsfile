@@ -28,7 +28,16 @@ pipeline {
             }
 
             always {
-                echo 'Pipeline execution finished.'
+                echo 'Publishing TestNG Report...'
+
+                       step([
+                           $class: 'Publisher',
+                           reportFilenamePattern: 'testng-results.xml',
+                           reportTitle: 'TestNG Report',
+                           reportDirectory: 'target/surefire-reports'
+                       ])
+
+                       echo 'Pipeline execution finished.'
             }
         }
 }
